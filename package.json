@@ -2,17 +2,19 @@
   "name": "civora-ai-platform",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
+    "postinstall": "node scripts/build.js",
+    "build": "node scripts/build.js",
+    "start": "node scripts/start.js",
     "install:all": "npm --prefix frontend install && npm --prefix gateway install && python -m pip install -r backend/requirements-dev.txt",
     "dev:backend": "cd backend && python -m flask --app wsgi run --port 5000 --debug",
     "dev:gateway": "npm --prefix gateway run dev",
     "dev:frontend": "npm --prefix frontend run dev",
     "dev": "concurrently -n api,gateway,web -c blue,green,yellow \"npm:dev:backend\" \"npm:dev:gateway\" \"npm:dev:frontend\"",
-    "build": "npm --prefix frontend run build",
-    "start": "npm run build && npm --prefix gateway start",
     "test": "cd backend && python -m pytest -q && cd ../gateway && npm test"
   },
-  "devDependencies": {
+  "dependencies": {
     "concurrently": "^9.0.0"
   }
 }
